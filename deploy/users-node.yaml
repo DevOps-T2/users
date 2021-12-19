@@ -5,7 +5,6 @@ metadata:
   labels:
     app: users-service
 spec:
-  type: LoadBalancer
   ports:
     - port: 80
   selector:
