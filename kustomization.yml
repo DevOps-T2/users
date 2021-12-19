@@ -1,0 +1,5 @@
+commonLabels:
+  app: users-app
+resources:
+  - deploy/users-mongo.yaml
+  - deploy/users-node.yaml
