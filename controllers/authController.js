@@ -54,7 +54,7 @@ exports.login = async function (req, res, next) {
                             userRole: user.userRole,
                         };
                         //console.log("user.id", user.id)
-                        const token = jwt.sign({ user: body }, process.env.API_KEY, { expiresIn: '1h' });
+                        const token = jwt.sign({ user: body, kid: "test" }, process.env.API_KEY, { expiresIn: '1h' });
                         //res.cookie('capital',token,{maxAge:9000000,httpOnly:true});
                         //res.cookie('jwt',token,{maxAge:9000000,httpOnly:true});
                         return res.json({
