@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
 router.route('/users')
     .post(userController.post)
     .get(userController.getAll);
- router.route('/users/:email')
+ router.route('/users/:id')
     .get(userController.get)
     .put(userController.put)
     .patch(userController.patch)

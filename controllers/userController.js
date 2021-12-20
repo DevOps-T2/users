@@ -99,16 +99,16 @@ exports.delete = async function (req, res, next) {
           UserId: 'system'
     };
 
-    await axios.delete("http://minizinc-app/api/minizinc/" + user._id, {}, {headers});
+    await axios.delete("http://minizinc-app/api/minizinc/" + req.params.id, {}, {headers});
 
-    await axios.delete("http://scheduler-app/api/scheduler/computations/" + user._id, {}, {headers});
+    await axios.delete("http://scheduler-app/api/scheduler/computations/" + req.params.id, {}, {headers});
 
-    await axios.delete("http://monitor-app/api/monitor/processes/" + user._id, {}, {headers});
+    await axios.delete("http://monitor-app/api/monitor/processes/" + req.params.id, {}, {headers});
 
-    await axios.delete("http://quotas-app/quota/deleteUser/" + user._id, {}, {headers});
+    await axios.delete("http://quotas-app/quota/deleteUser/" + req.params.id, {}, {headers});
 
 
-    userModel.deleteOne({email: req.params.email}, function (err, user) {
+    userModel.deleteOne({_id: req.params.id}, function (err, user) {
         if (err){
             next(err);
         }
@@ -116,7 +116,7 @@ exports.delete = async function (req, res, next) {
         // Send successful response
         res.json({
             message: 'User deleted',
-            data: {email: req.params.email},
+            data: {_id: req.params.id},
         });
     });
 };
