@@ -58,6 +58,9 @@ passport.use(
 
                 let createdUser = await user.save().catch(err => done(err));
 
+                console.log("createdUser");
+                console.log(user);
+                
                 return done(null, createdUser);
             } catch (error) {
                 done(error);
