@@ -48,7 +48,7 @@ passport.use(
         async (req, username, password, done) => {
             try {
                 const user = await createNewUser(req.body.email, req.body.password, req.body.displayName, req.body.userRole);
-                if (!user) {
+                if (user.errors) {
                     return done(user.errors)
                 }
                 return done(null, user);
