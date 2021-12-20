@@ -49,18 +49,10 @@ function authenticate(req, res, next){
     if(req.headers['Role'] == 'admin'){
         return next();
     };
-    //return next(); //TODO
-    passport.authenticate('jwt', {session: false}, function (err, user, info){
-        if(user){
-            req.user = user;
-            return next();
-        } else {
-            console.log("UNAUTHORIZED - JWT INVALID");
-            res.json({
-                message:'Unauthorized',
-                data:""
-            });
-            return;
-        }
-    })(req, res, next)
+
+    res.json({
+        message:'Unauthorized',
+        data:""
+    });
+    return;
 }
