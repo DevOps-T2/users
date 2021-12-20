@@ -15,10 +15,10 @@ exports.register = async function (req, res, next) {
                 });
                 return;
             }
-
+            console.log(user)
             // Add a user quota
             await axios.post("http://quotas-app/quota/addUserLimit", {
-                "user_id": user.id,
+                "user_id": user._id,
                 "memory": 1000,
                 "vCpu": 2
             }, {
@@ -29,7 +29,7 @@ exports.register = async function (req, res, next) {
                 }
             });
 
-            // Successfull response
+            // Successful response
             res.json({
                 message: 'Registration successful',
                 data: {
