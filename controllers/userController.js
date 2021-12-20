@@ -92,10 +92,28 @@ exports.patch = async function (req, res, next) {
 };
 
 exports.delete = async function (req, res, next) {
+
+    var headers = {
+         'Content-Type': 'application/json',
+          Role: 'admin',
+          UserId: 'system'
+    };
+
+    await axios.delete("http://minizinc-app/api/minizinc/" + user._id, {}, {headers});
+
+    await axios.delete("http://scheduler-app/api/scheduler/computations/" + user._id, {}, {headers});
+
+    await axios.delete("http://monitor-app/api/monitor/processes/" + user._id, {}, {headers});
+
+    await axios.delete("http://quotas-app/quota/deleteUser/" + user._id, {}, {headers});
+
+
     userModel.deleteOne({email: req.params.email}, function (err, user) {
         if (err){
             next(err);
         }
+
+        // Send successful response
         res.json({
             message: 'User deleted',
             data: {email: req.params.email},
