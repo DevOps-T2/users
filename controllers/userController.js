@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const axios = require('axios');
 
 exports.post = async function (req, res, next) {
     var user = new userModel();
