@@ -5,6 +5,7 @@ const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const fetch = require("node-fetch");
 var apiRequest = require('./apiRequest.js');
+const userModel = require('../models/userModel');
 require('dotenv').config();
 //var config = require('../config.json');
 
@@ -48,7 +49,7 @@ passport.use(
         async (req, username, password, done) => {
             try {
                 const user = await createNewUser(req.body.email, req.body.password, req.body.displayName, req.body.userRole);
-                if (user.errors) {
+                if (!user) {
                     return done(user.errors)
                 }
                 return done(null, user);
@@ -95,14 +96,19 @@ passport.use(
 );
 
 async function createNewUser(email, password, displayName, userRole) {
-    let userData = {
-        "email": email,
-        "password": password,
-        "displayName": displayName,
-        "userRole": userRole,
-    }
 
-    return await(await(await apiRequest.doApiRequest("users", "POST", userData, true)).json()).data;
+    var user = new userModel();
+    user.email = email;
+    user.password = password;
+    user.displayName = displayName;
+    user.userRole = userRole;
+
+    user.save(function (err) {
+        if (err){
+            return(null);
+        }
+        return user;
+    });  
 }
 
 module.exports = {

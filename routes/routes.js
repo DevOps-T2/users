@@ -17,13 +17,13 @@ router.get('/', function (req, res) {
 });
 
 router.route('/users')
-    .post(userController.post)
-    .get(userController.getAll);
+    .post(authenticate, userController.post)
+    .get(authenticate, userController.getAll);
  router.route('/users/:id')
-    .get(userController.get)
-    .put(userController.put)
-    .patch(userController.patch)
-    .delete(userController.delete);  
+    .get(authenticate, userController.get)
+    .put(authenticate, userController.put)
+    .patch(authenticate, userController.patch)
+    .delete(authenticate, userController.delete);  
 
 router.route('/register')
     .post(authController.register);
@@ -43,3 +43,20 @@ router.route('/projects/:projectid/sprints/:sprintid/stories/:storyid/tasks/:tas
     .delete((req,res,next)  => authenticate(req,res,next), authTools.checkId, taskUserController.delete);
 */
 module.exports = router;
+
+function authenticate(req, res, next){
+    //return next(); //TODO
+    passport.authenticate('jwt', {session: false}, function (err, user, info){
+        if(user){
+            req.user = user;
+            return next();
+        } else {
+            console.log("UNAUTHORIZED - JWT INVALID");
+            res.json({
+                message:'Unauthorized',
+                data:""
+            });
+            return;
+        }
+    })(req, res, next)
+}
