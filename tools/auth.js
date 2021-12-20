@@ -48,6 +48,8 @@ passport.use(
         async (req, username, password, done) => {
             try {
                 const user = await createNewUser(req.body.email, req.body.password, req.body.displayName, req.body.userRole);
+                console.log("user in register localStrategy");
+                console.log(user);
                 if (user.errors) {
                     return done(user.errors)
                 }
@@ -106,6 +108,8 @@ async function createNewUser(email, password, displayName, userRole) {
         if (err){
             return({errors: err});
         }
+        console.log("user in createNewUser");
+        console.log(user);
         return user;
     });  
 }
