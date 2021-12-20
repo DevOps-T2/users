@@ -5,9 +5,9 @@ const axios = require('axios');
 require('dotenv').config();
 
 exports.register = async function (req, res, next) {
-    passport.authenticate('register', {
+    passport.authenticate('register', {x
         session: false
-    },  (err, user) => {
+    }, async (err, user) => {
             if(err){
                 res.status(400).json({
                     message: 'Registration error',
