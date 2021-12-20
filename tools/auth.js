@@ -53,15 +53,12 @@ passport.use(
                 user.displayName = displayName;
                 user.userRole = userRole;
 
-                await user.save(function (err) {
-                    if (err){
-                        return done(err)
-                    }
-                    console.log("user in createNewUser");
-                    console.log(user);
-                    
-                    return done(null, user);
-                });
+                console.log("user in localStrategy");
+                console.log(user);
+
+                let createdUser = await user.save().catch(err => done(err));
+
+                return done(null, createdUser);
             } catch (error) {
                 done(error);
             }
