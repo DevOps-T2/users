@@ -47,13 +47,21 @@ passport.use(
         },
         async (req, username, password, done) => {
             try {
-                const user = await createNewUser(req.body.email, req.body.password, req.body.displayName, req.body.userRole);
-                console.log("user in register localStrategy");
-                console.log(user);
-                if (user.errors) {
-                    return done(user.errors)
-                }
-                return done(null, user);
+                var user = new userModel();
+                user.email = email;
+                user.password = password;
+                user.displayName = displayName;
+                user.userRole = userRole;
+
+                await user.save(function (err) {
+                    if (err){
+                        return done(err)
+                    }
+                    console.log("user in createNewUser");
+                    console.log(user);
+                    
+                    return done(null, user);
+                });
             } catch (error) {
                 done(error);
             }
