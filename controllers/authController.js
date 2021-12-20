@@ -5,7 +5,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 exports.register = async function (req, res, next) {
-    passport.authenticate('register', {x
+    passport.authenticate('register', {
         session: false
     }, async (err, user) => {
             if(err){
