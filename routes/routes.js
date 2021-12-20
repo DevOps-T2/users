@@ -46,7 +46,7 @@ module.exports = router;
 
 function authenticate(req, res, next){
     console.log(req.headers);
-    if(req.headers['Role'] == 'admin'){
+    if(req.headers['role'] == 'admin' || req.headers['Role'] == 'admin'){
         return next();
     };
 
