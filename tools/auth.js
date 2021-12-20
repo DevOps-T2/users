@@ -104,7 +104,7 @@ async function createNewUser(email, password, displayName, userRole) {
 
     user.save(function (err) {
         if (err){
-            return({errors: err);
+            return({errors: err});
         }
         return user;
     });  
