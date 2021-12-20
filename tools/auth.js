@@ -5,7 +5,6 @@ const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const fetch = require("node-fetch");
 var apiRequest = require('./apiRequest.js');
-const userModel = require('../models/userModel');
 require('dotenv').config();
 //var config = require('../config.json');
 
@@ -109,26 +108,4 @@ async function createNewUser(email, password, displayName, userRole) {
         }
         return user;
     });  
-}
-
-module.exports = {
-    checkId: function(req, res, next, param) {
-        console.log("err")
-        res.status(403).json({
-            message: 'Authentication failed',
-            data: ""
-        });
-
-        return;
-        /* let village = await(await(await tools.doApiRequest("villages/" + req.params.idVillage, "GET", "", false)).json()).data; 
-        if (req.user._id == village.owner || req.user.email == "admin@test.com"){
-            return next();
-        } else{
-            res.status(403).json({
-                message: 'Authentication failed',
-                data: ""
-            });
-            return;
-        } */
-    }
 }
