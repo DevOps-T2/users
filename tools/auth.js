@@ -48,10 +48,10 @@ passport.use(
         async (req, username, password, done) => {
             try {
                 var user = new userModel();
-                user.email = email;
-                user.password = password;
-                user.displayName = displayName;
-                user.userRole = userRole;
+                user.email = req.email;
+                user.password = req.password;
+                user.displayName = req.displayName;
+                user.userRole = req.userRole;
 
                 console.log("user in localStrategy");
                 console.log(user);
