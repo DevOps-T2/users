@@ -47,7 +47,7 @@ passport.use(
         },
         async (req, username, password, done) => {
             try {
-                const user = await createNewUser(req.body.email, req.body.password, req.body.displayName, req.body.userRole);
+                const user = createNewUser(req.body.email, req.body.password, req.body.displayName, req.body.userRole);
                 console.log("user in register localStrategy");
                 console.log(user);
                 if (user.errors) {
@@ -96,7 +96,7 @@ passport.use(
     )
 );
 
-async function createNewUser(email, password, displayName, userRole) {
+function createNewUser(email, password, displayName, userRole) {
 
     var user = new userModel();
     user.email = email;
