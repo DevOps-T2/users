@@ -1,6 +1,7 @@
 //const userModel = require('../models/userModel');// force: true will drop the table if it already exists
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 require('dotenv').config();
 
 exports.register = async function (req, res, next) {
@@ -14,6 +15,21 @@ exports.register = async function (req, res, next) {
                 });
                 return;
             }
+
+            // Add a user quota
+            await axios.post("http://quotas-app/quota/addUserLimit", {
+                "user_id": user.id,
+                "memory": 1000,
+                "vCpu": 2
+            }, {
+                headers: {
+                 'Content-Type': 'application/json',
+                  Role: 'admin',
+                  UserId: 'system'
+                }
+            });
+
+            // Successfull response
             res.json({
                 message: 'Registration successful',
                 data: {
