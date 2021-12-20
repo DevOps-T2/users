@@ -99,13 +99,14 @@ exports.delete = async function (req, res, next) {
           UserId: 'system'
     };
 
+    await axios.delete("http://quotas-app/quota/deleteUser/" + req.params.id, {}, {headers});
+
     await axios.delete("http://minizinc-app/api/minizinc/" + req.params.id, {}, {headers});
 
     await axios.delete("http://scheduler-app/api/scheduler/computations/" + req.params.id, {}, {headers});
 
     await axios.delete("http://monitor-app/api/monitor/processes/" + req.params.id, {}, {headers});
 
-    await axios.delete("http://quotas-app/quota/deleteUser/" + req.params.id, {}, {headers});
 
 
     userModel.deleteOne({_id: req.params.id}, function (err, user) {
