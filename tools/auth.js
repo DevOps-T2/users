@@ -63,6 +63,7 @@ passport.use(
 
                 return done(null, createdUser);
             } catch (error) {
+                console.log(error)
                 done(error);
             }
         }
