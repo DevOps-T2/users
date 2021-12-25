@@ -18,7 +18,7 @@ on:
       - main
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT 
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER_NAME: ${{ secrets.GKE_CLUSTER_NAME }}    # TODO: update to cluster name
   GKE_CLUSTER_ZONE: ${{ secrets.GKE_CLUSTER_ZONE }}   # TODO: update to cluster zone
   DEPLOYMENT_NAME: users # TODO: update to deployment name
